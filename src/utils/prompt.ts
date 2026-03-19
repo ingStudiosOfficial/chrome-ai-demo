@@ -1,7 +1,7 @@
 let session: LanguageModel | null = null;
 
 export async function generateContent(message: string, conversation: LanguageModelMessage[], onDownload: (loaded: number) => void, onMessage: (message: string) => void, onChunk: (chunk: string) => void, images?: Blob[], audios?: Blob[]): Promise<string> {
-	if (!('LanguageModel' in window)) throw new Error('Prompt API not available.');
+	if (!('LanguageModel' in window)) throw new Error('Prompt API not available, please use a browser that supports the Prompt API such as Google Chrome.');
 
 	if (!session) {
 		onMessage('Checking for Prompt API availability...');
@@ -22,7 +22,7 @@ export async function generateContent(message: string, conversation: LanguageMod
 				break;
 
 			case 'unavailable':
-				throw new Error('Prompt API unavailable.');
+				throw new Error("Prompt API unavailable. Please enable the 'optimization-guide-on-device-model' and 'prompt-api-for-gemini-nano-multimodal-input' flags.");
 		}
 
 		onMessage('Creating LanguageModel instance...');
