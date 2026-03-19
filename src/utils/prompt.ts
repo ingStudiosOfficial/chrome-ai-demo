@@ -27,7 +27,15 @@ export async function generateContent(message: string, conversation: LanguageMod
 
 		onMessage('Creating LanguageModel instance...');
 
-		const systemPrompt: LanguageModelSystemMessage = { role: 'system', content: [{ type: 'text', value: 'You are Gemini Nano, part of the Chrome Built-in AI. You are friendly and hlpful.' }] };
+		const currentDate = new Date();
+
+		const dateContext = `
+		Current year: ${currentDate.getFullYear()}
+		Current month: ${currentDate.getMonth() + 1}
+		Current date: ${currentDate.getDate()}
+		`;
+
+		const systemPrompt: LanguageModelSystemMessage = { role: 'system', content: [{ type: 'text', value: `You are Gemini Nano, part of the Chrome Built-in AI. You are friendly and hlpful. Date context: ${dateContext}` }] };
 
 		session = await LanguageModel.create({
 			monitor(m) {
